@@ -1,0 +1,51 @@
+name: Rust
+
+on:
+  schedule:
+    - cron:  '0 13 1 * *'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: dict_deduplicator
+    runs-on: ubuntu-latest
+
+    env:
+      gboardPath: /tmp/data/db
+      sougoz: /tmp/luna_pinyin.sogou.dict.yaml
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+    - name: Install Dependence
+      run: sudo apt update && sudo apt upgrade && sudo apt install wget unzip -y
+  
+    - name: Download Gboard Dict
+      run: url="https://api.github.com/repos/wuhgit/CustomPinyinDictionary/releases/latest" &&
+          browser_download_url=$(curl -s $url | grep -o "https://.*CustomPinyinDictionary_Gboard_Magisk.*" | sed 's/"$//') &&
+          filename=$(basename $browser_download_url) &&
+          echo $filename &&
+          wget $browser_download_url -P /tmp &&
+          unzip /tmp/$filename -d /tmp 
+
+    - name: Download Sougou dict
+      run: wget https://raw.githubusercontent.com/ssnhd/rime/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/luna_pinyin.sogou.dict.yaml -P /tmp  
+    
+    
+    - name: Build 
+      run: cargo build --release
+
+    - name: Run binary
+      run: target/release/dict_deduplicator --dict ${{ env.sougoz }} --db ${{ env.gboardPath }}
+
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: gboard_sougou.dict.yaml
+        asset_name: gboard_sougou.dict.yaml
+        tag: gboard_sougou.dict.yaml
+        overwrite: true
