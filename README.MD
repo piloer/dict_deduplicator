@@ -4,7 +4,7 @@
 * 总词库大约190万个
 
 ### Rime 词典下载地址 
-
+ 
 * https://github.com/piloer/dict_deduplicator/releases
 
 
