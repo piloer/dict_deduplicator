@@ -9,7 +9,7 @@
 
 
 ## 数据来源
-
+ 
 * Gboard 数据来源: https://github.com/wuhgit/CustomPinyinDictionary
 
 * Rime 搜狗词库来源: https://github.com/ssnhd/rime
