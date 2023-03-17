@@ -1,8 +1,8 @@
 name: Rust
 
 on:
-  schedule:
-    - cron:  '0 13 1 * *'
+  release:
+    types: [published]
 
 env:
   CARGO_TERM_COLOR: always
