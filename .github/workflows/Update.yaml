@@ -47,5 +47,5 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: gboard_sougou.dict.yaml
         asset_name: gboard_sougou.dict.yaml
-        tag: gboard_sougou.dict.yaml
+        tag: gboard_sougou
         overwrite: true
