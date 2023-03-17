@@ -1,4 +1,4 @@
-name: Rust
+name: dict_deduplicator
 
 on:
   release:
@@ -24,7 +24,7 @@ jobs:
     - name: Install Dependence
       run: sudo apt update && sudo apt upgrade && sudo apt install wget unzip -y
   
-    - name: Download Gboard Dict
+    - name: Download Gboard dict
       run: url="https://api.github.com/repos/wuhgit/CustomPinyinDictionary/releases/latest" &&
           browser_download_url=$(curl -s $url | grep -o "https://.*CustomPinyinDictionary_Gboard_Magisk.*" | sed 's/"$//') &&
           filename=$(basename $browser_download_url) &&
