@@ -28,7 +28,6 @@ jobs:
       run: url="https://api.github.com/repos/wuhgit/CustomPinyinDictionary/releases/latest" &&
           browser_download_url=$(curl -s $url | grep -o "https://.*CustomPinyinDictionary_Gboard_Magisk.*" | sed 's/"$//') &&
           filename=$(basename $browser_download_url) &&
-          echo $filename &&
           wget $browser_download_url -P /tmp &&
           unzip /tmp/$filename -d /tmp 
 
